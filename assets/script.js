@@ -19,7 +19,12 @@ var userTimeInputEl = document.getElementById('userTimeInput')
 var userTimeVal = 0;
 var recipeID = "";
 
-var sad = {
+var recNameEl = document.getElementById("recName");
+var recIngrEl = document.getElementById("recIngr");
+var recInstrEl = document.getElementById("recInstr");
+
+
+ var sad = {
     music: "KPop",
     food: "Dessert/Baking",
     image: "./images/BTSbread.webp",
