@@ -1,4 +1,4 @@
-var recipeAPIKey = "d04a0d52b2c64069b288f41799feebb3";
+var recipeAPIKey = "51e2cbe6072d4a7dbdae7ff2152eaa67";
 //This determines the cuisines of each of our meal categories 
 var recipeCuisines = ["korean", "french", "american", "thai", "italian", "mediterranean", "indian", "mexican"];
 //This determines how each meal is cooked/prepared i.e. baked or grilled
@@ -16,8 +16,7 @@ var randomNumber = 0;
 //each index in the array will contain the recipe moods
 var generateBtnEl = document.getElementById("generate")
 var userTimeInputEl = document.getElementById('userTimeInput')
-var userTimeVal = 0;
-var recipeID = "";
+var userTimeVal = 20;
 
 var recNameEl = document.getElementById("recName");
 var recIngrEl = document.getElementById("recIngr");
@@ -92,8 +91,8 @@ function callRecipeAPI () {
                 return response.json();
             }
         })
-        .then(function(data) { console.log(data)
-            
+        .then(function(data) { 
+            console.log(data)
             recipeName = data.results[0].title;
             
             prepTime = data.results[0].readyInMinutes;
@@ -108,11 +107,27 @@ function callRecipeAPI () {
                 recipeSteps[i] = stepObjArray[i].step;
             }
         })
+
+    console.log(recipeName)
 };
 
+generateBtnEl.addEventListener('click', function() {
+    // userTimeVal = userTimeInputEl.value;
+    // console.log(userTimeVal)
+    // randomNumberGenerator(0,7);
+    // callRecipeAPI()
+    // console.log(recipeName)
+    // recNameEl.textContent(recipeName)
+    userTimeVal = 20;
+    randomNumberGenerator(0,7);
+    callRecipeAPI();
+}) 
+
 userTimeVal = 20;
-randomNumberGenerator(0,7)
-callRecipeAPI()
+randomNumberGenerator(0,7);
+callRecipeAPI();
+
+
 
 
 
