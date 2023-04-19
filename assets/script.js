@@ -13,6 +13,11 @@ var recipeSteps = [];
 var moods = ["sad", "confident", "angry", "excited", "tired", "bad", "fearful", "romantic"]
 console.log(moods)
 
+var recNameEl = document.getElementById("recName");
+var recIngrEl = document.getElementById("recIngr");
+var recInstrEl = document.getElementById("recInstr");
+
+
  var sad = {
     music: "KPop",
     food: "Dessert/Baking",
