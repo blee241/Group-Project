@@ -1,4 +1,4 @@
-var recipeAPIKey = "01cd804d630e4dd28f7ae8099a1cd29a";
+var recipeAPIKey = "d04a0d52b2c64069b288f41799feebb3";
 //This determines the cuisines of each of our meal categories 
 var recipeCuisines = ["korean", "french", "american", "thai", "italian", "mediterranean", "indian", "mexican"];
 //This determines how each meal is cooked/prepared i.e. baked or grilled
@@ -77,8 +77,7 @@ function getRecipeAPIURL () {
     var recipeCuisine = recipeCuisines[randomNumber];
     var recipeType = recipeTypes[randomNumber];
     //This inserts the variable into the query parameter to search for a recipe in the given meal category
-    var getRecipe = "https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=" + userTimeVal + "&cuisine=" + recipeCuisine + "&type=" + recipeType + "&number=1&instructionsRequired=true&addRecipeInformation=true" + "&apiKey=" + recipeAPIKey;
-    console.log(getRecipe)
+    var getRecipe = "https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=" + userTimeVal + "&cuisine=" + recipeCuisine + "&type=" + recipeType + "&number=1&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true" + "&apiKey=" + recipeAPIKey;
     return getRecipe;
 };
 
@@ -96,31 +95,25 @@ function callRecipeAPI () {
         .then(function(data) { console.log(data)
             
             recipeName = data.results[0].title;
-            console.log(recipeName);
             
-            
-            // prepTime = data.recipes[0].readyInMinutes;
-            
-            // ingredientObjArray = data.recipes[0].extendedIngredients;
-            // for (let i = 0; i < ingredientObjArray.length; i++) {
-            //     recipeIngredients[i] = ingredientObjArray[i].original;    
-            // }
+            prepTime = data.results[0].readyInMinutes;
 
-            // stepObjArray = data.recipes[0].analyzedInstructions[0].steps;
-            // for (let i = 0; i < stepObjArray.length; i++) {
-            //     recipeSteps[i] = stepObjArray[i].step;
-            // }
+            ingredientObjArray = data.results[0].extendedIngredients;
+            for (let i = 0; i < ingredientObjArray.length; i++) {
+                recipeIngredients[i] = ingredientObjArray[i].original;    
+            }
+
+            stepObjArray = data.results[0].analyzedInstructions[0].steps;
+            for (let i = 0; i < stepObjArray.length; i++) {
+                recipeSteps[i] = stepObjArray[i].step;
+            }
         })
 };
 
-userTimeVal = 120;
-randomNumberGenerator(0,7)
-callRecipeAPI()
+// userTimeVal = 20;
+// randomNumberGenerator(0,7)
+// callRecipeAPI()
 
-// fetch("https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=45&cuisine=french&type=snack&apiKey=" + recipeAPIKey)
-//     .then(function(response)).then()
 
-// generateBtnEl.addEventListener('click', function() {
-//     userTimeVal = userTimeInputEl.value;
-// })
+
 
