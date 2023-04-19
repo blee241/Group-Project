@@ -1,4 +1,4 @@
-var recipeAPIKey = "28f5ba5611764f66ba074c700ab302b3";
+var recipeAPIKey = "01cd804d630e4dd28f7ae8099a1cd29a";
 //This is an array of the meal categories that WE define. Each index in the array contains recipe tags. The API works by filtering through recipes that must have these tags.
 var recipeCategories = ["baked,dessert", "french,dinner", "bbq,grilled", "thai,dinner", "italian,dinner", "mediterranean,dinner", "indian,dinner", "mexican,dinner"];
 //This variable will hold the recipe name
@@ -9,42 +9,44 @@ var prepTime = 0;
 var recipeIngredients = [];
 //This array will contain the recipe steps.
 var recipeSteps = [];
+//This is the output from the random number generator
+var randomNumber = 0;
 //each index in the array will contain the recipe moods
-var moods = ["sad", "confident", "angry", "excited", "tired", "bad", "fearful", "romantic"]
-console.log(moods)
+var generateBtnEl = document.getElementById("generate")
+var userTimeInputEl = document.getElementById('userTimeInput')
+var userTimeVal = 0;
 
- var sad = {
+var sad = {
     music: "KPop",
     food: "Dessert/Baking",
     image: "./images/BTSbread.webp",
  }
-
- var confident = {
+var confident = {
     music: "Disco",
     food: "French",
     image: "./images/discoball",
  }
- var angry = {
+var angry = {
     music: "Metal",
     food: "BBQ/Grilling",
     image: "./images/openfire.webp",
  }
-  var excited = {
+var excited = {
     music: "Pop",
     food: "Thai",
     image: "./images/openfire.webp",
   }
- var tired = {
+var tired = {
     music: "Punk",
     food:"Italian",
     image: "./images/openfire.webp",
  }
-  var bad = {
+var bad = {
     music: "Blues",
     food: "Mediterranean",
     image: "./images/openfire.webp",
   }
-  var fearful = {
+var brave = {
     music: "Indie",
     food: "Indian",
     image: "./images/openfire.webp",
@@ -54,25 +56,25 @@ var romantic = {
     food: "Mexican/Latin",
     image: "./images/openfire.webp",
 };
+var moods = [sad, confident, angry, excited, tired, bad, brave, romantic]
 
-//This is a simple random number generator
+//This is a simple random number generator that will return an integer between min and max.
 function randomNumberGenerator(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min)
+    randomNumber = Math.floor(Math.random() * (max - min + 1) + min)
 };
 
 //This function will output the API URL for the fetch call
-function getMealCategory () {
-    //This picks one of the meal categories randomly and saves it into a variable
-    var recipeType = recipeCategories[randomNumberGenerator(0,recipeCategories.length - 1)];
-    console.log(recipeType)
+function getRecipeAPIURL () {
+    //This picks one of the meal categories at the index determined by randomNumberGenerator() and saves the meal category into a variable
+    var recipeType = recipeCategories[randomNumber];
     //This inserts the variable into the query parameter to search for a recipe in the given meal category
-    var getRecipe = "https://api.spoonacular.com/recipes/random?tags=" + recipeType + "&number=2" + "&apiKey=" + recipeAPIKey;
+    var getRecipe = "https://api.spoonacular.com/recipes/random?tags=" + recipeType + "&number=1" + "&apiKey=" + recipeAPIKey;
     return getRecipe;
 };
 
 //This function will take information from the API and output the meal preparation time, ingredients, and instructions into their corresponsing variables.
 function callRecipeAPI () {
-    fetch(getMealCategory())
+    fetch(getRecipeAPIURL())
         .then(function (response) {
             if (response.status != 200) {
                 console.log("fetch error");
@@ -83,7 +85,7 @@ function callRecipeAPI () {
         })
         .then(function(data) {
             recipeName = data.recipes[0].title;
-            console.log(recipeName)
+            
             prepTime = data.recipes[0].readyInMinutes;
             
             ingredientObjArray = data.recipes[0].extendedIngredients;
@@ -96,6 +98,13 @@ function callRecipeAPI () {
                 recipeSteps[i] = stepObjArray[i].step;
             }
         })
-    };
+};
 
 
+
+randomNumberGenerator(0,7)
+callRecipeAPI ()
+
+generateBtnEl.addEventListener('click', function() {
+    userTimeVal = userTimeInputEl.value;
+})
