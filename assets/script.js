@@ -2,7 +2,7 @@ var recipeAPIKey = "d04a0d52b2c64069b288f41799feebb3";
 //This determines the cuisines of each of our meal categories 
 var recipeCuisines = ["korean", "french", "american", "thai", "italian", "mediterranean", "indian", "mexican"];
 //This determines how each meal is cooked/prepared i.e. baked or grilled
-var recipeTypes = ["breakfast", "breakfast", "breakfast", "breakfast", "breakfast", "breakfast", "breakfast", "breakfast"]
+var recipeTypes = ["dessert", "main course", "main course", "main course", "main course", "main course", "main course", "main course"]
 //This variable will hold the recipe name
 var recipeName = "";
 //This is a placeholder value of 0. The variable will represent how long it takes to make the meal after the callRecipeAPI function has been called.
@@ -110,9 +110,9 @@ function callRecipeAPI () {
         })
 };
 
-// userTimeVal = 20;
-// randomNumberGenerator(0,7)
-// callRecipeAPI()
+userTimeVal = 20;
+randomNumberGenerator(0,7)
+callRecipeAPI()
 
 
 
