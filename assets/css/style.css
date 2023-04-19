@@ -14,9 +14,10 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: rgb(239, 132, 32);
+    background-color: rgb(128, 62, 179);
     font-family: 'Sedgwick Ave Display', cursive; 
     padding: 2rem;
+    color: rgb(239, 132, 32);
 
 }
 
