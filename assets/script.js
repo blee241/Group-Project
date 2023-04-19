@@ -1,6 +1,8 @@
 var recipeAPIKey = "01cd804d630e4dd28f7ae8099a1cd29a";
-//This is an array of the meal categories that WE define. Each index in the array contains recipe tags. The API works by filtering through recipes that must have these tags.
-var recipeCategories = ["baked,dessert", "french,dinner", "bbq,grilled", "thai,dinner", "italian,dinner", "mediterranean,dinner", "indian,dinner", "mexican,dinner"];
+//This determines the cuisines of each of our meal categories 
+var recipeCuisines = ["korean", "french", "american", "thai", "italian", "mediterranean", "indian", "mexican"];
+//This determines how each meal is cooked/prepared i.e. baked or grilled
+var recipeTypes = ["breakfast", "breakfast", "breakfast", "breakfast", "breakfast", "breakfast", "breakfast", "breakfast"]
 //This variable will hold the recipe name
 var recipeName = "";
 //This is a placeholder value of 0. The variable will represent how long it takes to make the meal after the callRecipeAPI function has been called.
@@ -15,6 +17,7 @@ var randomNumber = 0;
 var generateBtnEl = document.getElementById("generate")
 var userTimeInputEl = document.getElementById('userTimeInput')
 var userTimeVal = 0;
+var recipeID = "";
 
 var sad = {
     music: "KPop",
@@ -66,9 +69,11 @@ function randomNumberGenerator(min, max) {
 //This function will output the API URL for the fetch call
 function getRecipeAPIURL () {
     //This picks one of the meal categories at the index determined by randomNumberGenerator() and saves the meal category into a variable
-    var recipeType = recipeCategories[randomNumber];
+    var recipeCuisine = recipeCuisines[randomNumber];
+    var recipeType = recipeTypes[randomNumber];
     //This inserts the variable into the query parameter to search for a recipe in the given meal category
-    var getRecipe = "https://api.spoonacular.com/recipes/random?tags=" + recipeType + "&number=1" + "&apiKey=" + recipeAPIKey;
+    var getRecipe = "https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=" + userTimeVal + "&cuisine=" + recipeCuisine + "&type=" + recipeType + "&number=1&instructionsRequired=true&addRecipeInformation=true" + "&apiKey=" + recipeAPIKey;
+    console.log(getRecipe)
     return getRecipe;
 };
 
@@ -83,28 +88,34 @@ function callRecipeAPI () {
                 return response.json();
             }
         })
-        .then(function(data) {
-            recipeName = data.recipes[0].title;
+        .then(function(data) { console.log(data)
             
-            prepTime = data.recipes[0].readyInMinutes;
+            recipeName = data.results[0].title;
+            console.log(recipeName);
             
-            ingredientObjArray = data.recipes[0].extendedIngredients;
-            for (let i = 0; i < ingredientObjArray.length; i++) {
-                recipeIngredients[i] = ingredientObjArray[i].original;    
-            }
+            
+            // prepTime = data.recipes[0].readyInMinutes;
+            
+            // ingredientObjArray = data.recipes[0].extendedIngredients;
+            // for (let i = 0; i < ingredientObjArray.length; i++) {
+            //     recipeIngredients[i] = ingredientObjArray[i].original;    
+            // }
 
-            stepObjArray = data.recipes[0].analyzedInstructions[0].steps;
-            for (let i = 0; i < stepObjArray.length; i++) {
-                recipeSteps[i] = stepObjArray[i].step;
-            }
+            // stepObjArray = data.recipes[0].analyzedInstructions[0].steps;
+            // for (let i = 0; i < stepObjArray.length; i++) {
+            //     recipeSteps[i] = stepObjArray[i].step;
+            // }
         })
 };
 
-
-
+userTimeVal = 120;
 randomNumberGenerator(0,7)
-callRecipeAPI ()
+callRecipeAPI()
 
-generateBtnEl.addEventListener('click', function() {
-    userTimeVal = userTimeInputEl.value;
-})
+// fetch("https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=45&cuisine=french&type=snack&apiKey=" + recipeAPIKey)
+//     .then(function(response)).then()
+
+// generateBtnEl.addEventListener('click', function() {
+//     userTimeVal = userTimeInputEl.value;
+// })
+
