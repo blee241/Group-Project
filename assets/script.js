@@ -109,6 +109,13 @@ function callRecipeAPI () {
         })
 };
 
+//This function will add data from the recipe api to elements on the page
+function displayRecipeInfo () {
+    recNameEl.textContent = recipeName;
+    recIngrEl.textContent = recipeIngredients;
+    recInstrEl.textContent = recipeSteps;
+}
+
 //The generate button will call the recipe API and update recipeName, prepTime, recipeIngredients, and recipeSteps. The variables need a little bit of time to update, so setTimeout is used to allow the computer to update them before logging them in the console.
 generateBtnEl.addEventListener('click', function() {
     userTimeVal = userTimeInputEl.value;
@@ -118,8 +125,8 @@ generateBtnEl.addEventListener('click', function() {
     randomNumberGenerator(0,7);
     callRecipeAPI();
     console.log(recipeName)
-    setTimeout(()=>{console.log(recipeName)}, 5000);
-    setTimeout(()=>{recNameEl.textContent(recipeName)}, 5000);
+    setTimeout(()=>{console.log(recipeName)}, 2000);
+    setTimeout(()=>{displayRecipeInfo ()}, 2000);
 }) 
 
 
