@@ -121,7 +121,7 @@ function callRecipeAPI () {
 function displayRecipeInfo () {
     recNameEl.textContent = recipeName;
     displayIngredientsList(recipeIngredients);
-    recInstrEl.textContent = recipeSteps;
+    displayStepsList(recipeSteps);
     recMoodDispEl.textContent = "Here's some " + recipeCuisine + " food to make you feel a little more " + stringMoods[randomNumber] + "!";
 }
 
@@ -130,6 +130,14 @@ function displayIngredientsList(ingredientsArray) {
         var ingListItemEl = document.createElement("li");
         ingListItemEl.textContent = ingredientsArray[i]
         recIngrEl.appendChild(ingListItemEl)
+    }
+}
+
+function displayStepsList(stepsArray) {
+    for (let i = 0; i < stepsArray.length; i++) {
+        var stepsListItemEl = document.createElement("li");
+        stepsListItemEl.textContent = stepsArray[i]
+        recInstrEl.appendChild(stepsListItemEl)
     }
 }
 
@@ -149,13 +157,13 @@ saveBtnEl.addEventListener('click', function() {
     localStorage.setItem("storedMood", stringMoods[randomNumber])
     localStorage.setItem("storedRecipeName", recipeName)
     localStorage.setItem("storedRecipeIngredients", JSON.stringify(recipeIngredients))
-    localStorage.setItem("storedRecipeSteps", recipeSteps)
+    localStorage.setItem("storedRecipeSteps", JSON.stringify(recipeSteps))
 });
 
 loadBtnEl.addEventListener('click', function() {
     recNameEl.textContent = localStorage.getItem("storedRecipeName");
     displayIngredientsList(JSON.parse(localStorage.getItem("storedRecipeIngredients")))
-    recInstrEl.textContent = localStorage.getItem("storedRecipeSteps");
+    displayStepsList(JSON.parse(localStorage.getItem("storedRecipeSteps")));
     recMoodDispEl.textContent = "Here's some " + localStorage.getItem("storedCuisine") + " food to make you feel a little more " + localStorage.getItem("storedMood") + "!";
 });
 
