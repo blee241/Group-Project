@@ -1,6 +1,8 @@
 var recipeAPIKey = "51e2cbe6072d4a7dbdae7ff2152eaa67";
 //This determines the cuisines of each of our meal categories 
-var recipeCuisines = ["korean", "french", "american", "thai", "italian", "mediterranean", "indian", "mexican"];
+var recipeCuisines = ["Korean", "French", "American", "Thai", "Italian", "Mediterranean", "Indian", "Mexican"];
+//The chosen cuisine.
+var recipeCuisine;
 //This determines how each meal is cooked/prepared i.e. baked or grilled
 var recipeTypes = ["dessert", "main course", "main course", "main course", "main course", "main course", "main course", "main course"]
 //This variable will hold the recipe name
@@ -12,18 +14,20 @@ var recipeIngredients = [];
 //This array will contain the recipe steps.
 var recipeSteps = [];
 //This is the output from the random number generator
-var randomNumber = 0;
+var randomNumber;
 //each index in the array will contain the recipe moods
 var generateBtnEl = document.getElementById("generate")
 var userTimeInputEl = document.getElementById('userTimeInput')
+//This variable will hold the user's input in minutes.
 var userTimeVal = 20;
 
 var recNameEl = document.getElementById("recName");
 var recIngrEl = document.getElementById("recIngr");
 var recInstrEl = document.getElementById("recInstr");
+var recMoodDispEl = document.getElementById("mood-display");
 
 
- var sad = {
+ var happy = {
     music: "KPop",
     food: "Dessert/Baking",
     image: "./images/BTSbread.webp",
@@ -63,7 +67,9 @@ var romantic = {
     food: "Mexican/Latin",
     image: "./images/openfire.webp",
 };
-var moods = [sad, confident, angry, excited, tired, bad, brave, romantic]
+var moods = [happy, confident, angry, excited, tired, bad, brave, romantic]
+//An array of strings is needed to display the mood as text. The above object returns a key-value pair when used to set the text content of an element.
+var stringMoods = ['happy', 'confident', 'angry', 'excited', 'tired', 'bad', 'brave', 'romantic'];
 
 //This is a simple random number generator that will return an integer between min and max.
 function randomNumberGenerator(min, max) {
@@ -73,7 +79,7 @@ function randomNumberGenerator(min, max) {
 //This function will output the API URL for the fetch call
 function getRecipeAPIURL () {
     //This picks one of the meal categories at the index determined by randomNumberGenerator() and saves the meal category into a variable
-    var recipeCuisine = recipeCuisines[randomNumber];
+    recipeCuisine = recipeCuisines[randomNumber];
     var recipeType = recipeTypes[randomNumber];
     //This inserts the variable into the query parameter to search for a recipe in the given meal category
     var getRecipe = "https://api.spoonacular.com/recipes/complexSearch?maxReadyTime=" + userTimeVal + "&cuisine=" + recipeCuisine + "&type=" + recipeType + "&number=1&instructionsRequired=true&addRecipeInformation=true&fillIngredients=true" + "&apiKey=" + recipeAPIKey;
@@ -85,7 +91,7 @@ function callRecipeAPI () {
     fetch(getRecipeAPIURL())
         .then(function (response) {
             if (response.status != 200) {
-                console.log("fetch error");
+                console.log("Fetch error. Try using another API key.");
                 return;
             } else {
                 return response.json();
@@ -114,6 +120,7 @@ function displayRecipeInfo () {
     recNameEl.textContent = recipeName;
     recIngrEl.textContent = recipeIngredients;
     recInstrEl.textContent = recipeSteps;
+    recMoodDispEl.textContent = "Here's some " + recipeCuisine + " food to make you feel a little more " + stringMoods[randomNumber] + "!";
 }
 
 //The generate button will call the recipe API and update recipeName, prepTime, recipeIngredients, and recipeSteps. The variables need a little bit of time to update, so setTimeout is used to allow the computer to update them before logging them in the console.
@@ -124,9 +131,9 @@ generateBtnEl.addEventListener('click', function() {
     }
     randomNumberGenerator(0,7);
     callRecipeAPI();
-    console.log(recipeName)
-    setTimeout(()=>{console.log(recipeName)}, 2000);
-    setTimeout(()=>{displayRecipeInfo ()}, 2000);
+    // console.log(recipeName)
+    // setTimeout(()=>{console.log(recipeName)}, 2000);
+    setTimeout(()=>{displayRecipeInfo ()}, 3000);
 }) 
 
 
