@@ -21,6 +21,7 @@ var userTimeInputEl = document.getElementById('userTimeInput')
 //This variable will hold the user's input in minutes.
 var userTimeVal = 20;
 
+var moodDisp = document.getElementById("mood-display");
 var recNameEl = document.getElementById("recName");
 var recIngrEl = document.getElementById("recIngr");
 var recInstrEl = document.getElementById("recInstr");
@@ -72,6 +73,8 @@ var romantic = {
 var moods = [happy, confident, angry, excited, tired, bad, brave, romantic]
 //An array of strings is needed to display the mood as text. The above object returns a key-value pair when used to set the text content of an element.
 var stringMoods = ['happy', 'confident', 'angry', 'excited', 'tired', 'bad', 'brave', 'romantic'];
+
+moodDisp.style.display = "none";
 
 //This is a simple random number generator that will return an integer between min and max.
 function randomNumberGenerator(min, max) {
@@ -150,6 +153,7 @@ generateBtnEl.addEventListener('click', function() {
     randomNumberGenerator(0,7);
     callRecipeAPI();
     setTimeout(()=>{displayRecipeInfo ()}, 3000);
+    moodDisp.style.display = "block";
 });
 
 saveBtnEl.addEventListener('click', function() {
