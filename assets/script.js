@@ -107,25 +107,21 @@ function callRecipeAPI () {
                 recipeSteps[i] = stepObjArray[i].step;
             }
         })
-
-    console.log(recipeName)
 };
 
+//The generate button will call the recipe API and update recipeName, prepTime, recipeIngredients, and recipeSteps. The variables need a little bit of time to update, so setTimeout is used to allow the computer to update them before logging them in the console.
 generateBtnEl.addEventListener('click', function() {
-    // userTimeVal = userTimeInputEl.value;
-    // console.log(userTimeVal)
-    // randomNumberGenerator(0,7);
-    // callRecipeAPI()
-    // console.log(recipeName)
-    // recNameEl.textContent(recipeName)
-    userTimeVal = 20;
+    userTimeVal = userTimeInputEl.value;
     randomNumberGenerator(0,7);
     callRecipeAPI();
+    console.log(recipeName)
+    setTimeout(()=>{console.log(recipeName)}, 5000);
+    setTimeout(()=>{recNameEl.textContent(recipeName)}, 5000);
+    
+    //recNameEl.textContent(recipeName)
 }) 
 
-userTimeVal = 20;
-randomNumberGenerator(0,7);
-callRecipeAPI();
+
 
 
 
