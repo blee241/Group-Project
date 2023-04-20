@@ -125,6 +125,12 @@ function displayRecipeInfo () {
     recMoodDispEl.textContent = "Here's some " + recipeCuisine + " food to make you feel a little more " + stringMoods[randomNumber] + "!";
 }
 
+function displayIngredientsList() {
+    for (let i = 0; i < recipeIngredients.length; i++) {
+        var ingListItemEl = 
+    }
+}
+
 //The generate button will call the recipe API and update recipeName, prepTime, recipeIngredients, and recipeSteps. The variables need a little bit of time to update, so setTimeout is used to allow the computer to update them before logging them in the console.
 generateBtnEl.addEventListener('click', function() {
     userTimeVal = userTimeInputEl.value;
@@ -152,3 +158,4 @@ loadBtnEl.addEventListener('click', function() {
     recInstrEl.textContent = localStorage.getItem("storedRecipeSteps");
     recMoodDispEl.textContent = "Here's some " + localStorage.getItem("storedCuisine") + " food to make you feel a little more " + localStorage.getItem("storedMood") + "!";
 });
+
