@@ -43,7 +43,7 @@ h4{
 }
 
 
-a {
+button{
     display: flex;
     flex-direction: row;
     text-decoration: none;
@@ -60,7 +60,6 @@ a {
     cursor: pointer;
     border-radius: 1.5rem;
     font-size: 1.5rem;
-    
 }
 
 p{
@@ -91,19 +90,30 @@ input{
     cursor: cell;
 }
 
+.save-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
 .mood{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     height: 75%;
+    
     padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 .food-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 300px;
+    flex-basis: 600px;
     border: .5rem solid rgb(2, 2, 2);
     background-color: white;
 }
@@ -112,7 +122,7 @@ input{
     display: flex;
     flex-direction: row;
     justify-content: space-around;;
-    width: 300px;
+    flex-basis: 600px;
     border: .5rem solid rgb(6, 6, 6);
     background-color: white;
 }
