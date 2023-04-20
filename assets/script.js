@@ -26,6 +26,7 @@ var recIngrEl = document.getElementById("recIngr");
 var recInstrEl = document.getElementById("recInstr");
 var recMoodDispEl = document.getElementById("mood-display");
 var saveBtnEl = document.getElementById("save-btn");
+var loadBtnEl = document.getElementById("load-btn");
 
 
  var happy = {
@@ -145,4 +146,9 @@ saveBtnEl.addEventListener('click', function() {
     localStorage.setItem("storedRecipeSteps", recipeSteps)
 });
 
-
+loadBtnEl.addEventListener('click', function() {
+    recNameEl.textContent = localStorage.getItem("storedRecipeName");
+    recIngrEl.textContent = localStorage.getItem("storedRecipeIngredients");
+    recInstrEl.textContent = localStorage.getItem("storedRecipeSteps");
+    recMoodDispEl.textContent = "Here's some " + localStorage.getItem("storedCuisine") + " food to make you feel a little more " + localStorage.getItem("storedMood") + "!";
+});
