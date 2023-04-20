@@ -120,14 +120,16 @@ function callRecipeAPI () {
 //This function will add data from the recipe api to elements on the page
 function displayRecipeInfo () {
     recNameEl.textContent = recipeName;
-    recIngrEl.textContent = recipeIngredients;
+    displayIngredientsList(recipeIngredients);
     recInstrEl.textContent = recipeSteps;
     recMoodDispEl.textContent = "Here's some " + recipeCuisine + " food to make you feel a little more " + stringMoods[randomNumber] + "!";
 }
 
-function displayIngredientsList() {
-    for (let i = 0; i < recipeIngredients.length; i++) {
-        var ingListItemEl = 
+function displayIngredientsList(ingredientsArray) {
+    for (let i = 0; i < ingredientsArray.length; i++) {
+        var ingListItemEl = document.createElement("li");
+        ingListItemEl.textContent = ingredientsArray[i]
+        recIngrEl.appendChild(ingListItemEl)
     }
 }
 
@@ -139,8 +141,6 @@ generateBtnEl.addEventListener('click', function() {
     }
     randomNumberGenerator(0,7);
     callRecipeAPI();
-    // console.log(recipeName)
-    // setTimeout(()=>{console.log(recipeName)}, 2000);
     setTimeout(()=>{displayRecipeInfo ()}, 3000);
 });
 
@@ -148,13 +148,13 @@ saveBtnEl.addEventListener('click', function() {
     localStorage.setItem("storedCuisine", recipeCuisine)
     localStorage.setItem("storedMood", stringMoods[randomNumber])
     localStorage.setItem("storedRecipeName", recipeName)
-    localStorage.setItem("storedRecipeIngredients", recipeIngredients)
+    localStorage.setItem("storedRecipeIngredients", JSON.stringify(recipeIngredients))
     localStorage.setItem("storedRecipeSteps", recipeSteps)
 });
 
 loadBtnEl.addEventListener('click', function() {
     recNameEl.textContent = localStorage.getItem("storedRecipeName");
-    recIngrEl.textContent = localStorage.getItem("storedRecipeIngredients");
+    displayIngredientsList(JSON.parse(localStorage.getItem("storedRecipeIngredients")))
     recInstrEl.textContent = localStorage.getItem("storedRecipeSteps");
     recMoodDispEl.textContent = "Here's some " + localStorage.getItem("storedCuisine") + " food to make you feel a little more " + localStorage.getItem("storedMood") + "!";
 });
