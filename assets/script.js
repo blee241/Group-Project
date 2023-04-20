@@ -25,6 +25,7 @@ var recNameEl = document.getElementById("recName");
 var recIngrEl = document.getElementById("recIngr");
 var recInstrEl = document.getElementById("recInstr");
 var recMoodDispEl = document.getElementById("mood-display");
+var saveBtnEl = document.getElementById("save-btn");
 
 
  var happy = {
@@ -134,12 +135,14 @@ generateBtnEl.addEventListener('click', function() {
     // console.log(recipeName)
     // setTimeout(()=>{console.log(recipeName)}, 2000);
     setTimeout(()=>{displayRecipeInfo ()}, 3000);
-}) 
+});
 
-
-
-
-
-
+saveBtnEl.addEventListener('click', function() {
+    localStorage.setItem("storedCuisine", recipeCuisine)
+    localStorage.setItem("storedMood", stringMoods[randomNumber])
+    localStorage.setItem("storedRecipeName", recipeName)
+    localStorage.setItem("storedRecipeIngredients", recipeIngredients)
+    localStorage.setItem("storedRecipeSteps", recipeSteps)
+});
 
 
