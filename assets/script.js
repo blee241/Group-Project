@@ -1,4 +1,4 @@
-var recipeAPIKey = "51e2cbe6072d4a7dbdae7ff2152eaa67";
+var recipeAPIKey = "28f5ba5611764f66ba074c700ab302b3";
 //This determines the cuisines of each of our meal categories 
 var recipeCuisines = ["Korean", "French", "American", "Thai", "Italian", "Mediterranean", "Indian", "Mexican"];
 //The chosen cuisine.
@@ -144,6 +144,13 @@ function displayStepsList(stepsArray) {
     }
 }
 
+function clearRecipeInfo() {
+    recNameEl.textContent = "";
+    recIngrEl.textContent = "";
+    recInstrEl.textContent = "";
+    recMoodDispEl.textContent = "";
+}
+
 //The generate button will call the recipe API and update recipeName, prepTime, recipeIngredients, and recipeSteps. The variables need a little bit of time to update, so setTimeout is used to allow the computer to update them before logging them in the console.
 generateBtnEl.addEventListener('click', function() {
     userTimeVal = userTimeInputEl.value;
@@ -152,6 +159,7 @@ generateBtnEl.addEventListener('click', function() {
     }
     randomNumberGenerator(0,7);
     callRecipeAPI();
+    clearRecipeInfo();
     setTimeout(()=>{displayRecipeInfo ()}, 3000);
     moodDisp.style.display = "block";
 });
@@ -165,9 +173,10 @@ saveBtnEl.addEventListener('click', function() {
 });
 
 loadBtnEl.addEventListener('click', function() {
-    recNameEl.textContent = localStorage.getItem("storedRecipeName");
-    displayIngredientsList(JSON.parse(localStorage.getItem("storedRecipeIngredients")))
-    displayStepsList(JSON.parse(localStorage.getItem("storedRecipeSteps")));
-    recMoodDispEl.textContent = "Here's some " + localStorage.getItem("storedCuisine") + " food to make you feel a little more " + localStorage.getItem("storedMood") + "!";
+        clearRecipeInfo();
+        recNameEl.textContent = localStorage.getItem("storedRecipeName");
+        displayIngredientsList(JSON.parse(localStorage.getItem("storedRecipeIngredients")))
+        displayStepsList(JSON.parse(localStorage.getItem("storedRecipeSteps")));
+        recMoodDispEl.textContent = "Here's some " + localStorage.getItem("storedCuisine") + " food to make you feel a little more " + localStorage.getItem("storedMood") + "!";
 });
 
